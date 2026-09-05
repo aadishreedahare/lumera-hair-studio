@@ -1,0 +1,12 @@
+.not-found {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding-top: 6rem;
+}
+
+.not-found .container {
+  max-width: 560px;
+  margin-inline: auto;
+}

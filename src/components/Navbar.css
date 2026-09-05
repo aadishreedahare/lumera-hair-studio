@@ -1,0 +1,204 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding-block: 1.6rem;
+  transition: padding var(--dur-med) var(--ease), background-color var(--dur-med) var(--ease),
+    border-color var(--dur-med) var(--ease), box-shadow var(--dur-med) var(--ease);
+  border-bottom: 1px solid transparent;
+}
+
+.navbar--solid {
+  padding-block: 1.05rem;
+  background: rgba(250, 246, 239, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom-color: var(--line);
+  box-shadow: 0 8px 30px rgba(30, 27, 24, 0.05);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.navbar__logo {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  letter-spacing: 0.16em;
+  font-weight: 500;
+  color: var(--ivory);
+  transition: color var(--dur-med) var(--ease);
+}
+
+.navbar--solid .navbar__logo {
+  color: var(--espresso-deep);
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.1rem, 2vw, 2.1rem);
+}
+
+.navbar__link {
+  position: relative;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  padding-block: 0.4rem;
+  opacity: 0.88;
+  transition: color var(--dur-med) var(--ease), opacity var(--dur-fast) var(--ease);
+}
+
+.navbar__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transition: right var(--dur-fast) var(--ease);
+}
+
+.navbar__link:hover {
+  opacity: 1;
+}
+
+.navbar__link:hover::after,
+.navbar__link.is-active::after {
+  right: 0;
+}
+
+.navbar--solid .navbar__link {
+  color: var(--espresso-deep);
+}
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.navbar__cta {
+  padding: 0.85em 1.6em;
+  font-size: 0.68rem;
+  background: transparent;
+  color: var(--ivory);
+  border-color: var(--line-light);
+}
+
+.navbar__cta:hover {
+  background: var(--ivory);
+  color: var(--espresso-deep);
+  border-color: var(--ivory);
+}
+
+.navbar--solid .navbar__cta {
+  color: var(--espresso-deep);
+  border-color: var(--espresso-deep);
+}
+
+.navbar--solid .navbar__cta:hover {
+  background: var(--espresso-deep);
+  color: var(--ivory);
+}
+
+.navbar__burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--ivory);
+  z-index: 110;
+  position: relative;
+}
+
+.navbar--solid .navbar__burger {
+  color: var(--espresso-deep);
+}
+
+@media (max-width: 980px) {
+  .navbar__links {
+    display: none;
+  }
+  .navbar__cta {
+    display: none;
+  }
+  .navbar__burger {
+    display: inline-flex;
+  }
+}
+
+.navbar__mobile {
+  position: fixed;
+  inset: 0;
+  background: var(--espresso-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-med) var(--ease), visibility var(--dur-med) var(--ease);
+  z-index: 99;
+}
+
+.navbar__mobile.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.navbar__mobile-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.navbar__mobile-link {
+  font-family: var(--font-serif);
+  font-size: 1.9rem;
+  color: var(--ivory);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+
+.navbar__mobile.is-open .navbar__mobile-link {
+  opacity: 0.92;
+  transform: translateY(0);
+}
+
+.navbar__mobile-link.is-active {
+  opacity: 1;
+  color: var(--gold-soft);
+}
+
+.navbar__mobile-cta {
+  margin-top: 1rem;
+  color: var(--ivory);
+  border-color: var(--line-light);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+
+.navbar__mobile.is-open .navbar__mobile-cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navbar__mobile-cta:hover {
+  background: var(--ivory);
+  color: var(--espresso-deep);
+}

@@ -1,0 +1,38 @@
+export const team = [
+  {
+    slug: "ananya-mehta",
+    name: "Ananya Mehta",
+    role: "Founder & Creative Director",
+    image: "/images/team/ananya-mehta.jpg",
+    experience: "14 years experience",
+    specialties: ["Dimensional color", "Balayage", "Hair transformations"],
+    bio: "Ananya founded LUMÉRA on a simple idea: that great color starts with genuinely listening. She trained across studios in Mumbai and London before returning to Pune to build a space where every appointment begins as a conversation, not a checklist.",
+  },
+  {
+    slug: "rhea-kapoor",
+    name: "Rhea Kapoor",
+    role: "Senior Hair Stylist",
+    image: "/images/team/rhea-kapoor.jpg",
+    experience: "9 years experience",
+    specialties: ["Precision cuts", "Blowouts", "Styling"],
+    bio: "Rhea has a gift for reading texture and face shape in the first five minutes of a consultation. Her cuts are designed to grow out gracefully, so clients look finished long after they leave the chair.",
+  },
+  {
+    slug: "mira-shah",
+    name: "Mira Shah",
+    role: "Color Specialist",
+    image: "/images/team/mira-shah.jpg",
+    experience: "11 years experience",
+    specialties: ["Blonding", "Highlights", "Color correction"],
+    bio: "Mira specializes in the careful science of lightening hair without compromising its health. Clients travel across the city specifically for her color-correction consultations.",
+  },
+  {
+    slug: "tara-deshmukh",
+    name: "Tara Deshmukh",
+    role: "Texture Specialist",
+    image: "/images/team/tara-deshmukh.jpg",
+    experience: "7 years experience",
+    specialties: ["Curly hair", "Curl cuts", "Texture treatments"],
+    bio: "Tara built her chair around textured and curly hair — cutting dry, curl by curl, and building routines that work in real life, not just in the studio mirror.",
+  },
+];

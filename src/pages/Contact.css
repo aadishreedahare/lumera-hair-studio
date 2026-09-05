@@ -1,0 +1,125 @@
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+}
+
+@media (max-width: 860px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-info address {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  margin: 1.2em 0 1.6em;
+  color: var(--mocha);
+}
+
+.contact-info__row {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  margin-bottom: 0.85em;
+  font-size: 0.95rem;
+}
+
+.contact-info__hours-title {
+  margin-top: 2rem;
+}
+
+.contact-info__hours {
+  list-style: none;
+  margin: 0 0 2.2rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+}
+
+.contact-info__hours li {
+  display: flex;
+  justify-content: space-between;
+  max-width: 320px;
+  font-size: 0.92rem;
+  padding-bottom: 0.6em;
+  border-bottom: 1px dotted var(--line);
+  color: var(--charcoal);
+}
+
+.contact-form-wrap {
+  background: var(--beige);
+  padding: clamp(1.8rem, 4vw, 3rem);
+}
+
+.contact-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 1.3rem;
+}
+
+.contact-form__field input,
+.contact-form__field textarea {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--charcoal);
+  padding: 0.85em 1em;
+  border: 1px solid var(--line);
+  background: var(--ivory);
+  resize: vertical;
+}
+
+.contact-form__field input:focus,
+.contact-form__field textarea:focus {
+  outline: none;
+  border-color: var(--espresso-deep);
+}
+
+.contact-form h2 {
+  margin-bottom: 1.2rem;
+}
+
+.contact-success {
+  text-align: center;
+  padding-block: 2rem;
+}
+
+.contact-success__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--ivory);
+  color: var(--espresso-deep);
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.contact-map {
+  width: 100%;
+  height: 420px;
+  filter: grayscale(0.15) sepia(0.08);
+}
+
+.contact-map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.contact-faq {
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+}

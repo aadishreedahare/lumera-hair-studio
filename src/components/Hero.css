@@ -1,0 +1,145 @@
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  color: var(--ivory);
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: hero-zoom 16s var(--ease) forwards;
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(30, 27, 24, 0.82) 0%, rgba(30, 27, 24, 0.28) 52%, rgba(30, 27, 24, 0.5) 100%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  padding-bottom: clamp(4.5rem, 9vw, 7rem);
+  max-width: 760px;
+  animation: hero-rise 1.1s var(--ease) both;
+  animation-delay: 0.15s;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero__eyebrow {
+  font-size: 0.76rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  margin-bottom: 1.2em;
+}
+
+.hero__headline {
+  color: var(--ivory);
+  margin-bottom: 0.42em;
+  font-weight: 400;
+}
+
+.hero__sub {
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  color: rgba(250, 246, 239, 0.86);
+  max-width: 46ch;
+  margin-bottom: 2.1em;
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+  flex-wrap: wrap;
+}
+
+.hero__link {
+  color: var(--ivory);
+}
+
+.hero__scroll {
+  position: absolute;
+  right: clamp(1.25rem, 4vw, 3.5rem);
+  bottom: 2.4rem;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 46px;
+  background: rgba(250, 246, 239, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__scroll-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gold-soft);
+  animation: scroll-drip 2.2s ease-in-out infinite;
+}
+
+@keyframes scroll-drip {
+  0% {
+    top: -100%;
+  }
+  60% {
+    top: 100%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+.hero__scroll-label {
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(250, 246, 239, 0.7);
+  writing-mode: vertical-rl;
+}
+
+@media (max-width: 640px) {
+  .hero__scroll {
+    display: none;
+  }
+}

@@ -1,0 +1,35 @@
+:root {
+  /* palette */
+  --ivory: #faf6ef;
+  --beige: #ede4d3;
+  --beige-deep: #e3d5bf;
+  --taupe: #a9967d;
+  --mocha: #8a7460;
+  --espresso: #493428;
+  --espresso-deep: #34251d;
+  --charcoal: #2a2622;
+  --near-black: #1e1b18;
+  --gold: #c4a064;
+  --gold-soft: #d6ba8c;
+  --white: #ffffff;
+  --line: rgba(42, 38, 34, 0.12);
+  --line-light: rgba(255, 255, 255, 0.18);
+
+  /* type */
+  --font-serif: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --font-sans: "Jost", "Helvetica Neue", Arial, sans-serif;
+
+  /* layout */
+  --container: 1280px;
+  --container-narrow: 860px;
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --section-pad: clamp(4.5rem, 9vw, 8.5rem);
+  --section-pad-sm: clamp(3rem, 6vw, 5.5rem);
+  --radius-sm: 2px;
+
+  /* motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 220ms;
+  --dur-med: 480ms;
+  --dur-slow: 900ms;
+}

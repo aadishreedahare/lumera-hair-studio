@@ -14,7 +14,6 @@ export default function Home() {
     <>
       <Hero />
 
-      {/* Introduction */}
       <section className="section">
         <div className="container grid-2">
           <Reveal>
@@ -37,7 +36,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured services */}
       <section className="section section--tinted">
         <div className="container">
           <Reveal className="section-head section-head--center">
@@ -59,7 +57,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* New client steps */}
       <section className="section">
         <div className="container">
           <Reveal className="section-head section-head--center">
@@ -83,7 +80,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Lumera */}
       <section className="section section--dark">
         <div className="container">
           <Reveal className="section-head section-head--center">
@@ -101,7 +97,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
       <section className="section">
         <div className="container">
           <Reveal className="section-head section-head--center">

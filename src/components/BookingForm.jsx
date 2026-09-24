@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { FiCheck, FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { serviceMenu } from "../data/services";
@@ -13,6 +13,9 @@ const STYLIST_OPTIONS = [
   ...team.map((member) => ({ slug: member.slug, name: member.name, role: member.role, image: member.image })),
 ];
 
+const EMPTY_FORM = { service: "", stylist: "", date: "", time: "", fullName: "", phone: "", email: "", notes: "" };
+
+// Local date as YYYY-MM-DD (shift by the timezone offset so toISOString doesn't give the UTC date).
 function todayISO() {
   const d = new Date();
   d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
@@ -21,8 +24,35 @@ function todayISO() {
 
 function formatDate(iso) {
   if (!iso) return "";
-  const d = new Date(`${iso}T00:00:00`);
-  return d.toLocaleDateString("en-IN", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+  return new Date(`${iso}T00:00:00`).toLocaleDateString("en-IN", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+function Summary({ rows }) {
+  return (
+    <dl>
+      {rows.map(([label, value]) => (
+        <div key={label}>
+          <dt>{label}</dt>
+          <dd>{value || "—"}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+function Field({ label, full, ...props }) {
+  const Input = props.rows ? "textarea" : "input";
+  return (
+    <label className={`booking__field ${full ? "booking__field--full" : ""}`}>
+      <span>{label}</span>
+      <Input {...props} />
+    </label>
+  );
 }
 
 export default function BookingForm() {
@@ -31,36 +61,15 @@ export default function BookingForm() {
 
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
-    service: "",
-    serviceCategory: "",
-    stylist: preselectedStylist && STYLIST_OPTIONS.some((s) => s.slug === preselectedStylist) ? preselectedStylist : "",
-    date: "",
-    time: "",
-    fullName: "",
-    phone: "",
-    email: "",
-    notes: "",
+    ...EMPTY_FORM,
+    stylist: STYLIST_OPTIONS.some((s) => s.slug === preselectedStylist) ? preselectedStylist : "",
   });
   const [confirmation, setConfirmation] = useState(null);
 
   const min = todayISO();
 
-  const canContinue = useMemo(() => {
-    switch (step) {
-      case 0:
-        return Boolean(form.service);
-      case 1:
-        return Boolean(form.stylist);
-      case 2:
-        return Boolean(form.date);
-      case 3:
-        return Boolean(form.time);
-      case 4:
-        return form.fullName.trim() && form.phone.trim() && form.email.trim();
-      default:
-        return true;
-    }
-  }, [step, form]);
+  const requiredForStep = [["service"], ["stylist"], ["date"], ["time"], ["fullName", "phone", "email"]][step] ?? [];
+  const canContinue = requiredForStep.every((key) => form[key].trim());
 
   const update = (patch) => setForm((f) => ({ ...f, ...patch }));
 
@@ -77,20 +86,17 @@ export default function BookingForm() {
   const stylistName = STYLIST_OPTIONS.find((s) => s.slug === form.stylist)?.name;
 
   const restart = () => {
-    setForm({
-      service: "",
-      serviceCategory: "",
-      stylist: "",
-      date: "",
-      time: "",
-      fullName: "",
-      phone: "",
-      email: "",
-      notes: "",
-    });
+    setForm(EMPTY_FORM);
     setConfirmation(null);
     setStep(0);
   };
+
+  const appointmentRows = [
+    ["Service", form.service],
+    ["Stylist", stylistName],
+    ["Date", formatDate(form.date)],
+    ["Time", form.time],
+  ];
 
   return (
     <div className="booking">
@@ -119,7 +125,7 @@ export default function BookingForm() {
                       type="button"
                       key={item.name}
                       className={`booking__option ${form.service === item.name ? "is-selected" : ""}`}
-                      onClick={() => update({ service: item.name, serviceCategory: group.category })}
+                      onClick={() => update({ service: item.name })}
                     >
                       <span>{item.name}</span>
                       <span className="booking__option-price">{item.price}</span>
@@ -192,68 +198,21 @@ export default function BookingForm() {
             <fieldset className="booking__fieldset">
               <legend>Your information</legend>
               <div className="booking__form-grid">
-                <label className="booking__field">
-                  <span>Full name *</span>
-                  <input
-                    type="text"
-                    value={form.fullName}
-                    onChange={(e) => update({ fullName: e.target.value })}
-                    placeholder="Your name"
-                    required
-                  />
-                </label>
-                <label className="booking__field">
-                  <span>Phone *</span>
-                  <input
-                    type="tel"
-                    value={form.phone}
-                    onChange={(e) => update({ phone: e.target.value })}
-                    placeholder="+91 00000 00000"
-                    required
-                  />
-                </label>
-                <label className="booking__field booking__field--full">
-                  <span>Email *</span>
-                  <input
-                    type="email"
-                    value={form.email}
-                    onChange={(e) => update({ email: e.target.value })}
-                    placeholder="you@example.com"
-                    required
-                  />
-                </label>
-                <label className="booking__field booking__field--full">
-                  <span>Hair concerns / additional notes</span>
-                  <textarea
-                    rows={4}
-                    value={form.notes}
-                    onChange={(e) => update({ notes: e.target.value })}
-                    placeholder="Tell us anything that will help your stylist prepare."
-                  />
-                </label>
+                <Field label="Full name *" type="text" placeholder="Your name" required
+                  value={form.fullName} onChange={(e) => update({ fullName: e.target.value })} />
+                <Field label="Phone *" type="tel" placeholder="+91 00000 00000" required
+                  value={form.phone} onChange={(e) => update({ phone: e.target.value })} />
+                <Field label="Email *" type="email" placeholder="you@example.com" required full
+                  value={form.email} onChange={(e) => update({ email: e.target.value })} />
+                <Field label="Hair concerns / additional notes" rows={4} full
+                  placeholder="Tell us anything that will help your stylist prepare."
+                  value={form.notes} onChange={(e) => update({ notes: e.target.value })} />
               </div>
             </fieldset>
 
             <div className="booking__summary">
               <h4>Your appointment</h4>
-              <dl>
-                <div>
-                  <dt>Service</dt>
-                  <dd>{form.service || "—"}</dd>
-                </div>
-                <div>
-                  <dt>Stylist</dt>
-                  <dd>{stylistName || "—"}</dd>
-                </div>
-                <div>
-                  <dt>Date</dt>
-                  <dd>{formatDate(form.date) || "—"}</dd>
-                </div>
-                <div>
-                  <dt>Time</dt>
-                  <dd>{form.time || "—"}</dd>
-                </div>
-              </dl>
+              <Summary rows={appointmentRows} />
             </div>
           </div>
         )}
@@ -270,34 +229,9 @@ export default function BookingForm() {
               appointment has been booked and no payment has been processed.
             </p>
             <div className="booking__summary booking__summary--confirmed">
-              <dl>
-                <div>
-                  <dt>Confirmation code</dt>
-                  <dd>{confirmation}</dd>
-                </div>
-                <div>
-                  <dt>Service</dt>
-                  <dd>{form.service}</dd>
-                </div>
-                <div>
-                  <dt>Stylist</dt>
-                  <dd>{stylistName}</dd>
-                </div>
-                <div>
-                  <dt>Date</dt>
-                  <dd>{formatDate(form.date)}</dd>
-                </div>
-                <div>
-                  <dt>Time</dt>
-                  <dd>{form.time}</dd>
-                </div>
-                <div>
-                  <dt>Contact</dt>
-                  <dd>
-                    {form.phone} · {form.email}
-                  </dd>
-                </div>
-              </dl>
+              <Summary
+                rows={[["Confirmation code", confirmation], ...appointmentRows, ["Contact", `${form.phone} · ${form.email}`]]}
+              />
             </div>
             <button type="button" className="btn btn-outline" onClick={restart}>
               Book Another Appointment

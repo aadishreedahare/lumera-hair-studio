@@ -1,54 +1,43 @@
 # LUMÉRA Hair Studio
 
-A premium, editorial salon website concept built with React, React Router and plain CSS. This is a self-initiated portfolio project for a **fictional** business — no real salon, stylists, prices, reviews or client photos are involved.
+A website for a fictional hair salon in Pune, built with React, React Router and plain CSS.
+It's a portfolio project: the salon, stylists, prices and reviews are all made up.
 
-## Getting started
+**Pages:** Home, About, Services & pricing, Team, Gallery, New clients, Contact, Book.
+
+## Features
+
+- Multi-step booking flow: service → stylist → date → time → details → confirmation
+  (front-end only, nothing is actually booked)
+- Gallery with category filters and a keyboard-friendly lightbox
+- "Book with this stylist" links that pre-select the stylist in the booking form
+- Scroll-in animations using `IntersectionObserver`
+- Responsive layout with a full-screen mobile menu
+- All content (services, prices, team, FAQ, hours) lives in `src/data/`, so text can be changed
+  without touching components
+
+## Running it
 
 ```bash
 npm install
-npm run dev
+npm run dev       # http://localhost:5173
+npm run build     # production build in dist/
+npm run lint
 ```
 
-Then open the printed local URL (typically `http://localhost:5173`).
+Needs Node 18+. Set up for Vercel: `vercel.json` sends every route to `index.html` so
+React Router works on refresh.
 
-```bash
-npm run build      # production build to /dist
-npm run preview    # preview the production build locally
-```
-
-Requires Node 18+.
-
-## Project structure
+## Structure
 
 ```
 src/
-  components/   Navbar, Hero, ServiceCard, TeamCard, GalleryGrid, TestimonialCard,
-                BookingForm, Footer, FAQAccordion, CTASection, PageHero, Reveal...
-  pages/        Home, About, Services, Team, Gallery, NewClients, Contact, Book, NotFound
-  data/         Editable content — services, team, gallery, testimonials, FAQ, salon info
-  styles/       Design tokens (variables.css), reset (base.css), shared utility classes
-public/images/  Locally generated editorial placeholder imagery (see images/README.txt)
+  components/   Navbar, Hero, BookingForm, GalleryGrid, FAQAccordion, cards...
+  pages/        One file per route
+  data/         Site content
+  hooks/        useReveal (scroll animation)
+  styles/       CSS variables, base styles, shared utility classes
+public/images/  Photos, resized for the web
 ```
 
-All copy, pricing, hours, stylists and testimonials live in `src/data/*.js` — edit those files to reskin the content without touching components.
-
-## About the imagery
-
-Every image in `public/images` is generated locally (soft gradients, grain and line work in the site's ivory / taupe / espresso palette) rather than sourced from stock photography, so the project has zero external image dependencies and works fully offline. Swap any file for real photography before using this as a live business site — keep the same filename, or update the path in the relevant `src/data/*.js` file.
-
-## Routes
-
-| Path | Page |
-| --- | --- |
-| `/` | Home |
-| `/about` | About |
-| `/services` | Services & pricing |
-| `/team` | Our team |
-| `/gallery` | Filterable gallery with lightbox |
-| `/new-clients` | New client guide |
-| `/contact` | Contact form, map, FAQ |
-| `/book` | Multi-step appointment booking (demo — no real booking or payment) |
-
-## Portfolio description
-
-> Self-initiated concept project for a fictional premium hair studio. Designed and developed a responsive salon website with service discovery, stylist profiles, gallery browsing and appointment-booking flow.
+Photos are free stock images. Swap them for real photos if this is ever used for a real salon.

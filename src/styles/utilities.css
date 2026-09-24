@@ -5,20 +5,11 @@
   padding-inline: var(--gutter);
 }
 
-.container-narrow {
-  width: 100%;
-  max-width: var(--container-narrow);
-  margin-inline: auto;
-  padding-inline: var(--gutter);
-}
 
 .section {
   padding-block: var(--section-pad);
 }
 
-.section-sm {
-  padding-block: var(--section-pad-sm);
-}
 
 .section--tinted {
   background: var(--beige);
@@ -183,21 +174,7 @@
   transition-delay: 360ms;
 }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
 
-.grain-overlay {
-  position: relative;
-}
 
 .grid-2 {
   display: grid;

@@ -80,8 +80,3 @@ export const serviceMenu = [
     ],
   },
 ];
-
-// Flat list used by the booking flow's "choose a service" step.
-export const bookableServices = serviceMenu.flatMap((group) =>
-  group.items.map((item) => ({ ...item, category: group.category }))
-);

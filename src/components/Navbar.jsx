@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import { navLinks } from "../data/salon";
@@ -30,47 +30,44 @@ export default function Navbar() {
   const solid = scrolled || open;
 
   return (
-    <Fragment>
+    <>
       <header className={`navbar ${solid ? "navbar--solid" : ""}`}>
-      <div className="navbar__inner container">
-        <Link to="/" className="navbar__logo" aria-label="LUMÉRA Hair Studio, home">
-          LUMÉRA
-        </Link>
-
-        <nav className="navbar__links" aria-label="Primary">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              end={link.to === "/"}
-              className={({ isActive }) => `navbar__link ${isActive ? "is-active" : ""}`}
-            >
-              {link.label}
-            </NavLink>
-          ))}
-        </nav>
-
-        <div className="navbar__actions">
-          <Link to="/book" className="btn navbar__cta">
-            Book an Appointment
+        <div className="navbar__inner container">
+          <Link to="/" className="navbar__logo" aria-label="LUMÉRA Hair Studio, home">
+            LUMÉRA
           </Link>
-          <button
-            type="button"
-            className="navbar__burger"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? <FiX /> : <FiMenu />}
-          </button>
+
+          <nav className="navbar__links" aria-label="Primary">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.to === "/"}
+                className={({ isActive }) => `navbar__link ${isActive ? "is-active" : ""}`}
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
+
+          <div className="navbar__actions">
+            <Link to="/book" className="btn navbar__cta">
+              Book an Appointment
+            </Link>
+            <button
+              type="button"
+              className="navbar__burger"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? <FiX /> : <FiMenu />}
+            </button>
+          </div>
         </div>
-      </div>
       </header>
 
-      {/* Rendered as a sibling of <header>, not a descendant — the scrolled/open
-         header applies backdrop-filter, which would otherwise become the
-         containing block for this fixed, full-viewport overlay and clip it
-         to the header's own height instead of the full screen. */}
+      {/* Kept outside <header>: its backdrop-filter would otherwise clip this fixed overlay to the header's height. */}
       <div className={`navbar__mobile ${open ? "is-open" : ""}`}>
         <nav className="navbar__mobile-links" aria-label="Mobile">
           {navLinks.map((link, i) => (
@@ -93,6 +90,6 @@ export default function Navbar() {
           </Link>
         </nav>
       </div>
-    </Fragment>
+    </>
   );
 }
